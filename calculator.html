@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>贷款总额&nbsp;<input type="text" id="initMoney">元</p>
+  <p>年利率&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="percent">%</p>
+  <p>贷款月数&nbsp;<input type="text" id="month">月</p>
+  <button class="service">等额本息</button><button class="repayment">等额本金</button>
+  <button class="calculate">计 算</button>
+  <p>应还利息：<i class="interest"></i></p>
+  <p>应还总额：<i class="total"></i></p>
+  <script>
+    const initMoneyEl = document.getElementById("initMoney");
+    const percentEl = document.getElementById("percent");
+    const monthEl = document.getElementById("month");
+    const serviceEl = document.querySelector(".service");
+    const repaymentEl = document.querySelector(".repayment");
+    const calculateEl = document.querySelector(".calculate");
+    const interestEl = document.querySelector(".interest");
+    const totalEl = document.querySelector(".total");
+    
+    let matchtype = 0;
+    serviceEl.addEventListener("click", ()=> {
+      matchtype = 1;
+      serviceEl.style="background-color: aquamarine;";
+      repaymentEl.style="background-color: white;";
+    });
+    repaymentEl.addEventListener("click", ()=> {
+      matchtype = 2;
+      repaymentEl.style="background-color: aquamarine;";
+      serviceEl.style="background-color: white;";
+    });
+
+    calculateEl.addEventListener("click", ()=> {
+      const p = +initMoneyEl.value;
+      const r = +percentEl.value/100/12;
+      const n = +monthEl.value;
+      let totalMoney;
+      console.log("p="+p+"r="+r+"n="+n+"matchtype="+matchtype);
+      if (matchtype === 1) {
+        totalMoney = p * (r* Math.pow(1+r,n)/(Math.pow(r+1,n)-1)) * n;
+      }else if(matchtype === 2) {
+        totalMoney = (n+1) *p * r/2 + p;
+      }
+      
+      interestEl.innerHTML = totalMoney - p;
+      totalEl.innerHTML = totalMoney;
+    });
+
+
+  </script>
+  
+</body>
+</html>
