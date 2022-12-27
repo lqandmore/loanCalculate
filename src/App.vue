@@ -5,6 +5,7 @@
       贷款总额&nbsp;
       <input type="text" id="initMoney" />元
     </p>
+    <p>do some thing</p>
   </div>
 </template>
 
